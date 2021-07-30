@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModel="clr-namespace:Einkaufsliste.ViewModel"
+             x:Class="Einkaufsliste.MainPage">
+    
+	<ContentPage.BindingContext>
+		<ViewModel:EinkaufViewModel/>
+	</ContentPage.BindingContext>
+    
+    <!--VIEW-->
+    <StackLayout BackgroundColor="#212121">
+        <StackLayout Orientation="Horizontal" BackgroundColor="Orange" Padding="8">
+            <Label FontSize="20"
+                   Padding="12"
+                   TextColor="Black"
+                   >Einkaufsliste </Label>
+             <Button Text="Clear" Clicked="OnDelete" HorizontalOptions="EndAndExpand" BackgroundColor="#383838" TextColor="White" HeightRequest="30" WidthRequest="80" FontSize="12" CornerRadius="2"></Button>
+        </StackLayout>
+        <ListView x:Name="recipeListView"
+                  ItemTapped="recipeListView_ItemTapped"
+                  ItemSelected="recipeListView_ItemSelected"
+                  SeparatorColor="#545454"
+                  >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}" TextColor="White"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout Orientation="Horizontal"  Padding="8" BackgroundColor="Orange" >
+            <Entry  x:Name="entry" Placeholder="Einkauf hinzufügen" WidthRequest="230" BackgroundColor="Orange" TextChanged="Entry_TextChanged" TextColor="Black" HorizontalOptions="CenterAndExpand" ></Entry>
+            <Button Text="Add" Clicked="OnAdd" HorizontalOptions="EndAndExpand" BackgroundColor="#383838" TextColor="White" CornerRadius="2"></Button>
+        </StackLayout>
+    </StackLayout>
+
+    <!--StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="10"/>
+        </Frame>
+        <Label FontSize="16" Padding="30,24,30,0">
+            <Label.FormattedText>
+                <FormattedString>
+                        <Span Text="Learn more at "/>
+                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label x:Name="label" Text=" { Binding Name } "/>
+        <Button Command="{Binding addCommand}" Text="Press">
+            <Button.TextColor>
+                Red
+            </Button.TextColor>
+            <Button.Background>
+                Black
+            </Button.Background>
+        </Button>
+        <Entry x:Name="entry" TextChanged="Entry_TextChanged"></Entry>
+
+        <StackLayout Margin="20,35,20,20">
+        <Entry x:Name="nameEntry"
+               Placeholder="Enter name" />
+        <Entry x:Name="ageEntry"
+               Placeholder="Enter age" />
+        <Button Text="Add to Database"
+                Clicked="OnButtonClicked" />
+        <CollectionView x:Name="collectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Name}"
+                               FontSize="Medium"
+                               />
+                        <Label Text="{Binding Age}"
+                               TextColor="Silver"
+                               FontSize="Small" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <ListView x:Name="recipeListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}"/>
+
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+
+
+        </ListView>
+    </StackLayout>
+    </StackLayout-->
+
+</ContentPage>
