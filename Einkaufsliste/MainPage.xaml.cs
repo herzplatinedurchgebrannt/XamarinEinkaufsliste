@@ -11,17 +11,11 @@ using System.Collections.ObjectModel;
 
 namespace Einkaufsliste
 {
-    /*
-    public class Recipe
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }*/
-
     public partial class MainPage : ContentPage
     {
         private SQLiteAsyncConnection _connection;
         private ObservableCollection<Person> _recipes;
+
 
         public MainPage()
         {
@@ -32,10 +26,6 @@ namespace Einkaufsliste
             _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
         }
 
-        void Entry_TextChanged(System.Object sender, Xamarin.Forms.TextChangedEventArgs e)
-        {
-            //App.Current.MainPage.DisplayAlert(entry.Text, "jo", "jo");
-        }
 
         protected override async void OnAppearing()
         {
@@ -49,21 +39,6 @@ namespace Einkaufsliste
             //collectionView.ItemsSource = await App.Database.GetPeopleAsync();
         }
 
-        /*
-        async void OnButtonClicked(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(nameEntry.Text) && !string.IsNullOrWhiteSpace(ageEntry.Text))
-            {
-                await App.Database.SavePersonAsync(new Person
-                {
-                    Name = nameEntry.Text,
-                    Age = int.Parse(ageEntry.Text)
-                });
-
-                nameEntry.Text = ageEntry.Text = string.Empty;
-                collectionView.ItemsSource = await App.Database.GetPeopleAsync();
-            }
-        }*/
 
         // add new item
         async void OnAdd(System.Object sender, System.EventArgs e)
@@ -95,6 +70,7 @@ namespace Einkaufsliste
             await _connection.UpdateAsync(recipe);
         }
 
+
         // clears db + list
         async void OnDelete(System.Object sender, System.EventArgs e)
         {
@@ -108,17 +84,54 @@ namespace Einkaufsliste
             _recipes.Clear();
         }
 
+
+        // clears db + list
+        async void ClearButtonLong(System.Object sender, System.EventArgs e)
+        {
+            // await _connection.DeleteAsync(_recipes[0]);
+            // _recipes.Remove(_recipes[0]);
+
+            
+
+            var deleteList = _recipes.Cast<Person>().ToList().Where(i => i.Decoration == TextDecorations.Strikethrough);
+
+            //_recipes.Remove(deleteList as Person);
+
+            foreach(Person p in deleteList)
+            {
+                await _connection.DeleteAsync(p);
+                _recipes.Remove(p);
+            }
+
+            /*
+            for (int d = 0; d < deleteList.Count(); d++ )
+            {
+                await _connection.DeleteAsync(_recipes[d]);
+                _recipes.Remove(_recipes[d]);
+            }*/
+        }
+
+
         // deletes single item, timer necessary for better UI
-        async void recipeListView_ItemTapped(System.Object sender, Xamarin.Forms.ItemTappedEventArgs e)
+        void recipeListView_ItemTapped(System.Object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
             var contact = e.Item as Person;
-            
-            //DisplayAlert("Tapped ", contact.ID.ToString(), "OK");
 
+            if (contact.Decoration == TextDecorations.Strikethrough)
+            {
+                contact.Decoration = TextDecorations.None;
+            }
+            else
+                contact.Decoration = TextDecorations.Strikethrough;
+
+
+            /*
             await _connection.DeleteAsync(contact);
 
             _recipes.Remove(contact);
+            */
         }
+
 
         // not used atm
         void recipeListView_ItemSelected(System.Object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)

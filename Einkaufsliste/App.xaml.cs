@@ -7,7 +7,7 @@ namespace Einkaufsliste
 {
     public partial class App : Application
     {
-        
+        /*
         static Database database;
 
         public static Database Database
@@ -20,7 +20,7 @@ namespace Einkaufsliste
                 }
                 return database;
             }
-        }
+        }*/
 
         public App()
         {

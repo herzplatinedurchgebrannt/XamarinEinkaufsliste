@@ -14,6 +14,7 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="ViewModel\" />
@@ -21,6 +22,7 @@
     <None Remove="View\" />
     <None Remove="Data\" />
     <None Remove="sqlite-net-pcl" />
+    <None Remove="Xamarin.CommunityToolkit" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

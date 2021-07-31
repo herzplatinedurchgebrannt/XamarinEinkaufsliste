@@ -1,13 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage
+             x:Name="thisPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:ViewModel="clr-namespace:Einkaufsliste.ViewModel"
              x:Class="Einkaufsliste.MainPage">
     
 	<ContentPage.BindingContext>
 		<ViewModel:EinkaufViewModel/>
 	</ContentPage.BindingContext>
-    
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="Red"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="HorizontalOptions" Value="EndAndExpand"/>
+                <Setter Property="BackgroundColor" Value="#383838"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="HeightRequest" Value="30"/>
+                <Setter Property="WidthRequest" Value="80"/>
+                <Setter Property="CornerRadius" Value="2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <!--VIEW-->
     <StackLayout BackgroundColor="#212121">
         <StackLayout Orientation="Horizontal" BackgroundColor="Orange" Padding="8">
@@ -15,7 +33,7 @@
                    Padding="12"
                    TextColor="Black"
                    >Einkaufsliste </Label>
-             <Button Text="Clear" Clicked="OnDelete" HorizontalOptions="EndAndExpand" BackgroundColor="#383838" TextColor="White" HeightRequest="30" WidthRequest="80" FontSize="12" CornerRadius="2"></Button>
+             <Button Text="Clear" Clicked="ClearButtonLong" Style="{StaticResource ButtonStyle}"></Button>
         </StackLayout>
         <ListView x:Name="recipeListView"
                   ItemTapped="recipeListView_ItemTapped"
@@ -24,13 +42,18 @@
                   >
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Name}" TextColor="White"/>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Name}" TextColor="White" FontSize="Medium" Padding="10" TextDecorations="{Binding Decoration}"/>
+                            <Label Text="{Binding Quantity}" TextColor="White" FontSize="Medium" Padding="10" TextDecorations="{Binding Decoration}" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </ViewCell>   
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <StackLayout Orientation="Horizontal"  Padding="8" BackgroundColor="Orange" >
-            <Entry  x:Name="entry" Placeholder="Einkauf hinzufügen" WidthRequest="230" BackgroundColor="Orange" TextChanged="Entry_TextChanged" TextColor="Black" HorizontalOptions="CenterAndExpand" ></Entry>
-            <Button Text="Add" Clicked="OnAdd" HorizontalOptions="EndAndExpand" BackgroundColor="#383838" TextColor="White" CornerRadius="2"></Button>
+            <Entry  x:Name="entry" Placeholder="Einkauf hinzufügen" WidthRequest="230" BackgroundColor="Orange" TextColor="Black" HorizontalOptions="CenterAndExpand" ></Entry>
+            <Button Text="Add" Clicked="OnAdd" Style="{StaticResource ButtonStyle}"></Button>
         </StackLayout>
     </StackLayout>
 
@@ -56,7 +79,6 @@
             </Button.Background>
         </Button>
         <Entry x:Name="entry" TextChanged="Entry_TextChanged"></Entry>
-
         <StackLayout Margin="20,35,20,20">
         <Entry x:Name="nameEntry"
                Placeholder="Enter name" />
@@ -82,12 +104,8 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding Name}"/>
-
                 </DataTemplate>
-
             </ListView.ItemTemplate>
-
-
         </ListView>
     </StackLayout>
     </StackLayout-->

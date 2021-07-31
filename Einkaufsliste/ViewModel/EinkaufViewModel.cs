@@ -9,22 +9,22 @@ namespace Einkaufsliste.ViewModel
     public class EinkaufViewModel : INotifyPropertyChanged
     {
         // VIEWMODEL
-        private string name;
+        private string name2;
 
-        public string Name {
+        public string Name2 {
 
-            get => name;
+            get => name2;
 
             set
             {
-                name = value;
+                name2 = value;
                 NotifyPropertyChanged();
             }
         }
 
         public EinkaufViewModel()
         {
-            Name = "lalala";
+            Name2 = "lalala";
 
             //var app = Application.Current as App;
         }
@@ -54,7 +54,7 @@ namespace Einkaufsliste.ViewModel
             Console.WriteLine("Pressed");
             //App.Current.MainPage.DisplayAlert("jo","jo","jo");
             
-            Name = "Pressed";
+            Name2 = "Pressed";
         }
 
 
